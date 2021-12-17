@@ -1,0 +1,16 @@
+builds:
+  - env: [ CGO_ENABLED=0 ]
+    goos: [ linux ]
+    goarch: [ amd64 ]
+
+dockers:
+  - image_templates:
+      - "skpr/terraform-provider-zip:latest"
+      - "skpr/terraform-provider-zip:{{ .Tag }}"
+    build_flag_templates: [ "--pull" ]
+
+release:
+  prerelease: auto
+  github:
+    owner: skpr
+    name: terraform-provider-zip

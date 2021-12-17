@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  terraform:
+    image: skpr/terraform-provider-zip:latest
+    working_dir: /data
+    # environment:
+      # Turn this on for debugging.
+      # - TF_LOG=trace
+    volumes:
+      - ./example:/data
+      - ./example/.tmp:/tmp
