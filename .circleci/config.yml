@@ -41,7 +41,7 @@ jobs:
 
   release:
     docker:
-      - image: docker.io/goreleaser/goreleaser:latest
+      - image: docker.io/skpr/goreleaser:latest
     steps:
       - checkout
       - setup_remote_docker
