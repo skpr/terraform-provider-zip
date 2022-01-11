@@ -2,11 +2,8 @@ package archive
 
 import (
 	"archive/zip"
-	"bytes"
 	"crypto/md5"
-	"encoding/gob"
 	"fmt"
-	"io"
 	"os"
 	"path/filepath"
 )
@@ -29,26 +26,14 @@ func writeZip(files map[string]interface{}) (string, error) {
 	defer writer.Close()
 
 	for fileName, fileData := range files {
-		header := &zip.FileHeader{
-			Name:   fileName,
-			Method: zip.Deflate,
-		}
-
-		headerWriter, err := writer.CreateHeader(header)
+		file, err := writer.Create(fileName)
 		if err != nil {
 			return path, err
 		}
 
-		var buf bytes.Buffer
+		raw := []byte(fmt.Sprintf("%v", fileData))
 
-		enc := gob.NewEncoder(&buf)
-
-		err = enc.Encode(fileData)
-		if err != nil {
-			return "", err
-		}
-
-		_, err = io.Copy(headerWriter, &buf)
+		_, err = file.Write(raw)
 		if err != nil {
 			return path, err
 		}
