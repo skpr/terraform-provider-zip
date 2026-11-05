@@ -23,8 +23,5 @@ jobs:
       - name: 📦 Install Mise
         uses: jdx/mise-action@v4
 
-      - name: 🧪 Vet
-        run: mise run vet
-
       - name: 🧪 Lint
         run: mise run lint

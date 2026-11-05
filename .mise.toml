@@ -24,10 +24,6 @@ go build -o bin/redirect-app -ldflags=${LDFLAGS} github.com/skpr/redirect-app
 '''
 depends = ["vendor"]
 
-[tasks."vet"]
-description = "Linting automatically checks code for errors and style issues"
-run = "go vet ./..."
-
 [tasks."lint"]
 description = "Linting automatically checks code for errors and style issues"
 run = "golangci-lint run"
