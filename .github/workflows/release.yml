@@ -17,21 +17,10 @@ jobs:
 
     steps:
       - name: ⬇️ Git clone the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - name: 📦 Install Go
-        uses: actions/setup-go@v5
-        with:
-          go-version-file: 'go.mod'
+      - name: 📦 Install Mise
+        uses: jdx/mise-action@v4
 
-      - name: 📦 Install dependencies
-        run: go mod vendor
-
-      - name: 📦 Install GoReleaser
-        uses: goreleaser/goreleaser-action@v6
-        with:
-          install-only: true
-
-      - name: ☁️ GoReleaser
-        run: |
-          goreleaser
+      - name: ☁️ Release
+        run: mise run release
