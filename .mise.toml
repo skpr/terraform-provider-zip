@@ -1,0 +1,44 @@
+[tools]
+go = "1.27"
+"go:github.com/daixiang0/gci" = "v0.14.0"
+"github:golangci/golangci-lint" = "v2.15.0"
+"github:goreleaser/goreleaser" = "2.14"
+"github:securego/gosec" = "v2.30.0"
+
+[env]
+CGO_ENABLED=0
+LGFLAGS="-extldflags '-static'"
+
+[tasks.vendor]
+description = "Vendor resets the main module's vendor directory to include all packages needed to build the application"
+run = "go mod vendor"
+
+[tasks.tidy]
+description = "Tidy makes sure go.mod matches the source code in the module"
+run = "go mod tidy"
+
+[tasks.build]
+description = "Build the application"
+run = '''
+go build -o bin/redirect-app -ldflags=${LDFLAGS} github.com/skpr/redirect-app
+'''
+depends = ["vendor"]
+
+[tasks."lint"]
+description = "Linting automatically checks code for errors and style issues"
+run = "golangci-lint run"
+
+[tasks.test]
+description = "Checks to verify code correctness"
+run = "go test -cover ./..."
+depends = ["vendor"]
+
+[tasks.release]
+description = "Release the command line interface"
+run = "goreleaser release"
+depends = ["vendor"]
+
+[tasks.snapshot]
+description = "Create a snapshot release for local testing"
+run = "goreleaser release --snapshot --clean"
+depends = ["vendor"]

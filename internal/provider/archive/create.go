@@ -2,6 +2,7 @@ package archive
 
 import (
 	"context"
+
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
@@ -22,8 +23,15 @@ func CreateAndRead(ctx context.Context, d *schema.ResourceData, m interface{}) d
 
 	d.SetId(md5)
 
-	d.Set(FieldOutputPath, path)
-	d.Set(FieldOutputMD5, md5)
+	err = d.Set(FieldOutputPath, path)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
+	err = d.Set(FieldOutputMD5, md5)
+	if err != nil {
+		return diag.FromErr(err)
+	}
 
 	return nil
 }
