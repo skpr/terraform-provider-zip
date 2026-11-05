@@ -1,9 +1,9 @@
 [tools]
-go = "1.26"
-"go:github.com/daixiang0/gci" = "latest"
-"github:golangci/golangci-lint" = "latest"
+go = "1.27"
+"go:github.com/daixiang0/gci" = "v0.14.0"
+"github:golangci/golangci-lint" = "v2.15.0"
 "github:goreleaser/goreleaser" = "2.14"
-"github:securego/gosec" = "latest"
+"github:securego/gosec" = "v2.30.0"
 
 [env]
 CGO_ENABLED=0
